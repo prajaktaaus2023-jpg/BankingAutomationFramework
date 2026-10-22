@@ -1,0 +1,5 @@
+
+username,password,expectedSuccess
+tomsmith,SuperSecretPassword!,true
+wronguser,wrongpassword,false
+tomsmith,wrongpassword,false
