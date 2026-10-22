@@ -1,0 +1,33 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Verify Environment') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+            }
+        }
+
+        stage('Run Selenium Tests') {
+            steps {
+                dir('banking-automation') {
+                    sh 'mvn clean test'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            junit 'banking-automation/target/surefire-reports/TEST-*.xml'
+        }
+    }
+}
